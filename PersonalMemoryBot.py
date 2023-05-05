@@ -85,15 +85,16 @@ def test_embed():
 
 
 # Set up the Streamlit app
-st.title("🤖 Personalized Bot with Memory 🧠 ")
-st.markdown(
-    """ 
-        ####  🗨️ Chat with your PDF files 📜 with `Conversational Buffer Memory`  
-        > *powered by [LangChain]('https://langchain.readthedocs.io/en/latest/modules/memory.html#memory') + 
-        [OpenAI]('https://platform.openai.com/docs/models/gpt-3-5') + [DataButton](https://www.databutton.io/)*
-        ----
-        """
-)
+st.title("👩‍⚕️🔎 Symptom Checker")
+st.subheader("by PHOENIX group")
+# st.markdown(
+#     """ 
+#         ####  🗨️ Chat with your PDF files 📜 with `Conversational Buffer Memory`  
+#         > *powered by [LangChain]('https://langchain.readthedocs.io/en/latest/modules/memory.html#memory') + 
+#         [OpenAI]('https://platform.openai.com/docs/models/gpt-3-5') + [DataButton](https://www.databutton.io/)*
+#         ----
+#         """
+# )
 
 st.markdown(
     """
@@ -157,8 +158,12 @@ if uploaded_file:
                     description="Useful for when you need to answer questions about the aspects asked. Input may be a partial or fully formed question.",
                 )
             ]
-            prefix = """Have a conversation with a human, answering the following questions as best you can based on the context and memory available. 
-                        You have access to a single tool:"""
+            prefix = """"You are a doctor.  Your duty is to diagnose my disease based on his symptoms using the context and memory available.  If you ask about my symptoms, \
+        take into account my reply and the mapping from biological and medical concepts to values \
+        ​​that is mentioned further, in other case don't use it.  If you are not sure with the diagnosis or I just say that I don't feel well without any additional information, ask again for \
+            the symptoms up to three times in total and diagnose taking into account the given answers, the current and the  \
+                previous dictionary maps. 
+                To identify the diagnosis, you have access to a single tool:"""
             suffix = """Begin!"
 
             {chat_history}
@@ -190,7 +195,7 @@ if uploaded_file:
 
             # Allow the user to enter a query and generate a response
             query = st.text_input(
-                "**What's on your mind?**",
+                "**Are you not feeling well? Describe your symptoms:**",
                 placeholder="Ask me anything from {}".format(name_of_file),
             )
 
@@ -205,7 +210,7 @@ if uploaded_file:
             with st.expander("History/Memory"):
                 st.session_state.memory
 
-# Add a video and a link to a blog post in the sidebar
-with st.sidebar:
-    st.video("https://youtu.be/daMNGGPJkEE")
-    st.markdown("*Codes with a blog post will be available soon.*")
+# # Add a video and a link to a blog post in the sidebar
+# with st.sidebar:
+#     st.video("https://youtu.be/daMNGGPJkEE")
+#     st.markdown("*Codes with a blog post will be available soon.*")
